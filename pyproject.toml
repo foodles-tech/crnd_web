@@ -1,0 +1,26 @@
+# use the hatchling build backend, with the hatch-odoo plugin
+[build-system]
+requires = ["hatchling", "hatch-odoo"]
+build-backend = "hatchling.build"
+
+[project]
+name = "odoo-addons-crnd-web"
+version = "14.0"
+author = "CRND"
+readme = "README.md"
+#license = "LicenseRef-Proprietary"
+# dependencies are dynamic because they will be generated from Odoo addons manifests
+dynamic = ["dependencies"]
+
+# enable the hatch-odoo metadata hook to generate dependencies from addons manifests
+[tool.hatch.metadata.hooks.odoo-addons-dependencies]
+# enable the hatch-odoo build hook to locate the Odoo addons
+[tool.hatch.build.hooks.odoo-addons-dirs]
+[tool.hatch.build]
+exclude = ["setup/"]
+
+[tool.hatch-odoo]
+# if our addons have non standard version numbers, let's help hatch-odoo discover the Odoo version
+odoo_version_override = "14.0"
+# our addons ar at the repo root
+addons_dirs = ["."]
